@@ -1,0 +1,228 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct StudentRecord {
+    int rollNo;
+    string name;
+    string fatherName;
+    string dob;
+    string branch;
+    int admissionYear;
+    int passingYear;
+    string state;
+    string pin;
+    string country;
+    string district;
+};
+
+const int MAX_STUDENTS = 100;
+StudentRecord studentList[MAX_STUDENTS];
+int currentSize = 0;
+
+// Function to add a new record to the list
+void addRecord() {
+    if (currentSize < MAX_STUDENTS) {
+        cout << "Enter Roll No: ";
+        cin >> studentList[currentSize].rollNo;
+        cout << "Enter Name: ";
+        cin.ignore();
+        getline(cin, studentList[currentSize].name);
+        cout << "Enter Father's Name: ";
+        getline(cin, studentList[currentSize].fatherName);
+        cout << "Enter Date of Birth: ";
+        getline(cin, studentList[currentSize].dob);
+        cout << "Enter Branch: ";
+        getline(cin, studentList[currentSize].branch);
+        cout << "Enter Year of Admission: ";
+        cin >> studentList[currentSize].admissionYear;
+        cout << "Enter Tentative Year of Passing: ";
+        cin >> studentList[currentSize].passingYear;
+        cout << "Enter State: ";
+        cin.ignore();
+        getline(cin, studentList[currentSize].state);
+        cout<<"Enter District:";
+        cin.ignore();
+        getline(cin,studentList[currentSize].district);
+        cout << "Enter PIN: ";
+        getline(cin, studentList[currentSize].pin);
+        cout << "Enter Country: ";
+        getline(cin, studentList[currentSize].country);
+        currentSize++;
+        cout << "Record added successfully." << endl;
+    } else {
+        cout << "List is full. Cannot add more records." << endl;
+    }
+}
+
+// Function to update a record by roll number
+void updateRecord() {
+    int rollNo;
+    cout << "Enter Roll No of the record to update: ";
+    cin >> rollNo;
+    for (int i = 0; i < currentSize; i++) {
+        if (studentList[i].rollNo == rollNo) {
+            cout << "Enter updated data for the record:" << endl;
+            cout << "Enter Name: ";
+            cin.ignore();
+            getline(cin, studentList[i].name);
+            cout << "Enter Father's Name: ";
+            getline(cin, studentList[i].fatherName);
+            cout << "Enter Date of Birth: ";
+            getline(cin, studentList[i].dob);
+            cout << "Enter Branch: ";
+            getline(cin, studentList[i].branch);
+            cout << "Enter Year of Admission: ";
+            cin >> studentList[i].admissionYear;
+            cout << "Enter Tentative Year of Passing: ";
+            cin >> studentList[i].passingYear;
+            cout << "Enter State: ";
+            cin.ignore();
+            getline(cin, studentList[i].state);
+            cout<<"Enter District:";
+            cin.ignore();
+            getline(cin,studentList[currentSize].district);
+            cout << "Enter PIN: ";
+            getline(cin, studentList[i].pin);
+            cout << "Enter Country: ";
+            getline(cin, studentList[i].country);
+            cout << "Record updated successfully." << endl;
+            return;
+        }
+    }
+    cout << "Record with Roll No " << rollNo << " not found." << endl;
+}
+
+// Function to delete a record by roll number
+void deleteRecord() {
+    int rollNo;
+    cout << "Enter Roll No of the record to delete: ";
+    cin >> rollNo;
+    for (int i = 0; i < currentSize; i++) {
+        if (studentList[i].rollNo == rollNo) {
+            for (int j = i; j < currentSize - 1; j++) {
+                studentList[j] = studentList[j + 1];
+            }
+            currentSize--;
+            cout << "Record with Roll No " << rollNo << " deleted successfully." << endl;
+            return;
+        }
+    }
+    cout << "Record with Roll No " << rollNo << " not found." << endl;
+}
+
+// Function to generate a report based on input parameters
+void generateReport() {
+    int option;
+    cout << "Choose report type:" << endl;
+    cout << "1. Persons (students) with common name." << endl;
+    cout << "2. Persons (students) with common state." << endl;
+    cout << "3. Persons (students) with common district." << endl;
+    cout << "Enter your choice (1/2/3): ";
+    cin >> option;
+
+    if (option == 1) {
+        string commonName;
+        cout << "Enter the common name to search for: ";
+        cin.ignore();
+        getline(cin, commonName);
+        cout << "Students with the common name '" << commonName << "':" << endl;
+        for (int i = 0; i < currentSize; i++) {
+            if (studentList[i].name == commonName) {
+                // Print the record
+                cout << "Roll No: " << studentList[i].rollNo << endl;
+                cout << "Name: " << studentList[i].name << endl;
+                cout << "Father's Name: " << studentList[i].fatherName << endl;
+                cout << "Date of Birth: " << studentList[i].dob << endl;
+                cout << "Branch: " << studentList[i].branch << endl;
+                cout << "Year of Admission: " << studentList[i].admissionYear << endl;
+                cout << "Tentative Year of Passing: " << studentList[i].passingYear << endl;
+                cout << "State: " << studentList[i].state << endl;
+                cout << "PIN: " << studentList[i].pin << endl;
+                cout << "Country: " << studentList[i].country << endl;
+            }
+        }
+    } else if (option == 2) {
+        string commonState;
+        cout << "Enter the common state to search for: ";
+        cin.ignore();
+        getline(cin, commonState);
+        cout << "Students from the common state '" << commonState << "':" << endl;
+        for (int i = 0; i < currentSize; i++) {
+            if (studentList[i].state == commonState) {
+                // Print the record
+                cout << "Roll No: " << studentList[i].rollNo << endl;
+                cout << "Name: " << studentList[i].name << endl;
+                cout << "Father's Name: " << studentList[i].fatherName << endl;
+                cout << "Date of Birth: " << studentList[i].dob << endl;
+                cout << "Branch: " << studentList[i].branch << endl;
+                cout << "Year of Admission: " << studentList[i].admissionYear << endl;
+                cout << "Tentative Year of Passing: " << studentList[i].passingYear << endl;
+                cout << "State: " << studentList[i].state << endl;
+                cout << "PIN: " << studentList[i].pin << endl;
+                cout << "Country: " << studentList[i].country << endl;
+            }
+        }
+    } else if (option == 3) {
+         string commonDistrict;
+        cout << "Enter the common district to search for: ";
+        cin.ignore();
+        getline(cin, commonDistrict);
+        cout << "Students from the common district" <<  commonDistrict<< "':" << endl;
+        for (int i = 0; i < currentSize; i++) {
+            if (studentList[i].district == commonDistrict) {
+                // Print the record
+                cout << "Roll No: " << studentList[i].rollNo << endl;
+                cout << "Name: " << studentList[i].name << endl;
+                cout << "Father's Name: " << studentList[i].fatherName << endl;
+                cout << "Date of Birth: " << studentList[i].dob << endl;
+                cout << "Branch: " << studentList[i].branch << endl;
+                cout << "Year of Admission: " << studentList[i].admissionYear << endl;
+                cout << "Tentative Year of Passing: " << studentList[i].passingYear << endl;
+                cout << "State: " << studentList[i].state << endl;
+                 cout << "District: " << studentList[i].district<< endl;
+                cout << "PIN: " << studentList[i].pin << endl;
+                cout << "Country: " << studentList[i].country << endl;
+            }
+       } 
+    }
+    else {
+        cout << "Invalid option. Please choose 1, 2, or 3." << endl;
+    }
+}
+
+int main() {
+    int choice;
+    do {
+        cout << "Student Record Management System" << endl;
+        cout << "1. Add a new record" << endl;
+        cout << "2. Update a record" << endl;
+        cout << "3. Delete a record" << endl;
+        cout << "4. Generate a report" << endl;
+        cout << "5. Exit" << endl;
+        cout << "Enter your choice (1/2/3/4/5): ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                addRecord();
+                break;
+            case 2:
+                updateRecord();
+                break;
+            case 3:
+                deleteRecord();
+                break;
+            case 4:
+                generateReport();
+                break;
+            case 5:
+                cout << "Exiting the program." << endl;
+                break;
+            default:
+                cout << "Invalid choice. Please choose 1, 2, 3, 4, or 5." << endl;
+        }
+    } while (choice != 5);
+
+    return 0;
+}
